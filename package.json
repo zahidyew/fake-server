@@ -1,0 +1,19 @@
+{
+  "name": "nodejs_fake_server",
+  "version": "1.0.0",
+  "description": "a server serving json placeholder data",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "zahidyew",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
