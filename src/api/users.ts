@@ -1,9 +1,11 @@
-const router = require('express').Router();
-const fetch = require('node-fetch');
+import express, {Request, Response} from 'express'
+import fetch from 'node-fetch'
+
+export const usersRouter = express.Router()
 
 // get all users
-router.get('/', (req, res) => {
-   const url = 'https://jsonplaceholder.typicode.com/users'
+usersRouter.get('/', (_req: Request, res: Response) => {
+   const url: string = 'https://jsonplaceholder.typicode.com/users'
 
    fetch(url)
       .then(response => response.json())
@@ -12,8 +14,8 @@ router.get('/', (req, res) => {
 })
 
 // get a user with a specific id
-router.get('/:id', (req, res) => {
-   const url = 'https://jsonplaceholder.typicode.com/users/' + req.params.id
+usersRouter.get('/:id', (req: Request, res: Response) => {
+   const url: string = 'https://jsonplaceholder.typicode.com/users/' + req.params.id
 
    fetch(url)
       .then(response => response.json())
@@ -22,8 +24,8 @@ router.get('/:id', (req, res) => {
 })
 
 // create new user
-router.post('/', (req, res) => {
-   const url = 'https://jsonplaceholder.typicode.com/users' 
+usersRouter.post('/', (req: Request, res: Response) => {
+   const url: string = 'https://jsonplaceholder.typicode.com/users' 
 
    if(Object.keys(req.body).length === 0) {
       res.json("Form data is undefined")
@@ -49,8 +51,8 @@ router.post('/', (req, res) => {
 })
 
 // update user's info
-router.patch('/:id', (req, res) => {
-   const url = 'https://jsonplaceholder.typicode.com/users/' + req.params.id 
+usersRouter.patch('/:id', (req: Request, res: Response) => {
+   const url: string = 'https://jsonplaceholder.typicode.com/users/' + req.params.id 
 
    if (Object.keys(req.body).length === 0) {
       res.json("Form data is undefined")
@@ -74,8 +76,8 @@ router.patch('/:id', (req, res) => {
 })
 
 // delete user
-router.delete('/:id', (req, res) => {
-   const url = 'https://jsonplaceholder.typicode.com/users/' + req.params.id 
+usersRouter.delete('/:id', (req: Request, res: Response) => {
+   const url: string = 'https://jsonplaceholder.typicode.com/users/' + req.params.id 
 
    fetch(url, {
       method: 'DELETE',
@@ -89,18 +91,16 @@ router.delete('/:id', (req, res) => {
 })
 
 // get user albums
-router.get('/:id/albums', (req, res) => {
-   let query = ""
+usersRouter.get('/:id/albums', (req: Request, res: Response) => {
+   let query: string = ""
 
    // check if client include query to filter result
    if(req.query.title !== undefined) { query = query + "&title=" + req.query.title }
 
-   const url = 'https://jsonplaceholder.typicode.com/users/' + req.params.id + '/albums?' + query
+   const url: string = 'https://jsonplaceholder.typicode.com/users/' + req.params.id + '/albums?' + query
 
    fetch(url)
       .then(response => response.json())
       .then(data => res.json(data))
       .catch((error) => console.log(error))
 })
-
-module.exports = router
